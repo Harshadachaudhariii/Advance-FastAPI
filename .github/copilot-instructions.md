@@ -1,14 +1,15 @@
 # FastAPI learning-notes workflow
 
-When the user says **"u start"**, begin the learning-notes workflow:
+When the user says **"u start"** or **"start"**, begin the learning-notes workflow:
 
 1. Scan the current project source, dependency/configuration files, and existing files in `notes/`. Treat the code that exists now as the source of truth; do not assume a topic has been implemented just because it appears in the lesson outline.
-2. Keep `notes/03_first_api.md` as a live, code-grounded note while the user is working on the first API in `main.py`. On each "u start" request during this stage, refresh note 03 to match the current `main.py`, including when the user has cleared or rewritten it. Do not advance to note 04 unless the user asks to move on or the current request clearly starts a new lesson.
-3. Explain concepts using the actual project code and its current state. If the code does not support a lesson yet, say so rather than inventing implementation details. Write or update only the matching `notes/NN_*.md` file and any earlier note made factually stale by the code change. Preserve numbering and filenames, and avoid replacing unrelated notes.
-4. Work interactively: give a brief explanation of what you found, write the note, then ask one short comprehension or hands-on question and wait for the user's response before continuing to another lesson. Do not ask for approval to write a note that is clearly supported by the code.
-5. If the next lesson is ambiguous or the project has changed in a way that makes the right note unclear, ask one focused question before writing.
+2. Keep `notes/03_first_api.md` as a live, code-grounded note about creating the app and basic routes. On each "u start" or "start" request while the user is working on the first API in `main.py`, refresh note 03 to match the current code, including when the user has cleared or rewritten it.
+3. Keep path and query parameter teaching in `notes/04_path_query_params.md`, not note 03. When the current code demonstrates those features and the user asks to cover them or move on, write or refresh note 04 from the code. Do not duplicate the parameter lesson in note 03.
+4. Explain concepts using the actual project code and its current state. If the code does not support a lesson yet, say so rather than inventing implementation details. Write or update only the matching `notes/NN_*.md` file and any earlier note made factually stale by the code change. Preserve numbering and filenames, and avoid replacing unrelated notes.
+5. Work interactively: give a brief explanation of what you found, write the note, then ask one short comprehension or hands-on question and wait for the user's response before continuing to another lesson. Do not ask for approval to write a note that is clearly supported by the code.
+6. If the next lesson is ambiguous or the project has changed in a way that makes the right note unclear, ask one focused question before writing.
 
-The user asked for notes 01 and 02 to be authored initially. They are in `notes/01_introduction.md` and `notes/02_setup.md`. The user is currently iterating on the first API in `main.py` and wants note 03 refreshed from that file whenever they say "u start".
+The user asked for notes 01 and 02 to be authored initially. They are in `notes/01_introduction.md` and `notes/02_setup.md`. The user is currently iterating on the first API in `main.py` and wants note 03 refreshed from that file whenever they say "u start" or "start".
 
 ## Lesson outline
 

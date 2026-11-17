@@ -11,7 +11,8 @@ FastAPI is a Python framework for defining those API endpoints. It uses Python t
 - The project is named `advance-fastapi` and requires Python 3.11 or newer.
 - FastAPI and Uvicorn are declared as dependencies in `pyproject.toml`.
 - `main.py` creates a FastAPI application object named `app`.
-- The application currently has two GET endpoints: `/` and `/contact`.
+- The application has GET endpoints for `/`, `/products`, `/product/{product_id}`, and `/greet`. The `/greet` route is currently declared twice in `main.py`.
+- Product examples are stored in `mockData.py`.
 
 Uvicorn is an ASGI server commonly used to run the FastAPI application. It serves the app when started with the correct import path.
 

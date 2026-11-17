@@ -1,55 +1,63 @@
 # 03 — Your first FastAPI endpoints
 
-## The application object
+## Create the application
 
-In `main.py`, the app is created with:
+The project creates a FastAPI application in `main.py`:
 
 ```python
 from fastapi import FastAPI
+from mockData import products
 
 app = FastAPI()
 ```
 
-`FastAPI()` creates the application. Uvicorn imports the `app` object from the `main` module to serve it.
+`app` is the application object that Uvicorn serves. The `products` list is imported from `mockData.py`.
 
-## Registering endpoints
+## Add routes
 
-The project currently defines two GET endpoints:
+A route decorator connects an HTTP method and URL path to a Python function:
 
 ```python
 @app.get("/")
 def home():
     return "Welcome to FastAPI Series!"
-
-
-@app.get("/contact")
-def contact():
-    return "Contact with us any time."
 ```
 
-`@app.get("/")` tells FastAPI to call `home()` when a client sends an HTTP GET request to the root path `/`. The `/contact` route works the same way for that path. The returned strings become the response bodies.
+When a client sends a GET request to `/`, FastAPI calls `home()` and returns its result.
 
-| Method | Path | Response body |
+The project also has a collection endpoint:
+
+```python
+@app.get("/products")
+def get_products():
+    return products
+```
+
+It returns the product list, whose sample entries are defined in `mockData.py`. The project has additional routes for individual products and greetings; their path and query parameters are covered in [04_path_query_params.md](./04_path_query_params.md).
+
+## Current route overview
+
+| Method | Path | Purpose |
 |---|---|---|
-| GET | `/` | `Welcome to FastAPI Series!` |
-| GET | `/contact` | `Contact with us any time.` |
+| GET | `/` | Returns a welcome message. |
+| GET | `/products` | Returns the product list. |
+| GET | `/product/{product_id}` | Returns a product matching the path value. |
+| GET | `/greet` | Greeting endpoint; parameter details are in the next note. |
 
-You can inspect and try the endpoints at `http://127.0.0.1:8000/docs` after starting the server.
+The `/greet` route is currently declared twice. The duplicate-route issue is explained in the next note.
 
-## Start the server
+## Run the API
 
-From the project directory, run:
+From the project directory, start the development server:
 
 ```powershell
 uv run uvicorn main:app --reload
 ```
 
-`main:app` means “import the `app` object from `main.py`.” The `--reload` option is useful while developing because the server restarts after source changes.
+`main:app` means “load the `app` object from `main.py`.” Then visit `http://127.0.0.1:8000/docs` to explore the routes in FastAPI's interactive documentation.
 
-## The `main()` function
-
-The current file also has a `main()` function that directly calls `home()`. That call is an ordinary Python function call; it does not send an HTTP request or start the API server. Uvicorn serves the routes through the `app` object instead.
+Running `uv run python main.py` does not start the API. The current `if __name__ == "__main__"` block calls route functions directly and calls `get_one_porduct()` without its required argument, so running the file directly currently raises an error.
 
 ## Check your understanding
 
-Which function handles a GET request to `/contact`, and what does `main:app` tell Uvicorn to load?
+What does `@app.get("/products")` connect, and which function handles that route?
