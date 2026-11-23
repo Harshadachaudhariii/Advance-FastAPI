@@ -21,13 +21,11 @@ with engine.connect() as connection:
     connection.execute(text("SELECT 1"))
 ```
 
-If that succeeds, the app prints its success message and then calls `Base.metadata.create_all(bind=engine)`. If connecting raises an exception, the handler prints the failure and exception details, then re-raises the error so startup fails.
+If that succeeds, the app prints its success message and then calls `Base.metadata.create_all(bind=engine)`. If connecting raises an exception, startup fails. The `GET /test-db` endpoint also runs `SELECT 1`, using a session supplied by `get_db()`.
 
-The `/test-db` endpoint also runs `SELECT 1`, this time using a session supplied by `get_db()`. It checks that a query can run; it does not create or save a task.
+## Tables and schema changes
 
-## Current database limitation
-
-The app has a MySQL connection and a SQLAlchemy `Base`, but the current user and task model files do not define mapped tables. As a result, `create_all()` has no task or user tables to create yet, and the current API does not persist task records in MySQL.
+The current app defines mapped SQLAlchemy models for users and tasks, so `create_all()` can create their tables when they are missing. It does not update an existing table when a model changes. Alembic is also configured for migrations; review the migration history before applying a migration to a database that already contains data.
 
 ## Check your understanding
 
